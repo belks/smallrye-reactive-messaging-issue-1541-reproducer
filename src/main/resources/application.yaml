@@ -1,0 +1,83 @@
+
+quarkus:
+  devservices:
+    enabled: false
+  test:
+    continuous-testing: disabled
+  log:
+    console:
+      json: true
+      format: '%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c{3.}] (%t) %s MDC=%X %e%n'
+    category:
+      "org.apache.activemq.audit.message":
+        level: ERROR # IntelliJ might show a warning here, ignore it
+  arc:
+    dev-mode:
+      monitoring-enabled: false
+  reactive-messaging:
+    health:
+      enabled: false
+    metrics:
+      enabled: true
+  smallrye-health:
+    root-path: /health
+  smallrye-metrics:
+    path: /metrics
+  swagger-ui:
+    always-include: true
+    path: /swagger-ui
+  amqp:
+    devservices:
+      enabled: false
+
+
+amqp-host: 127.0.0.1
+amqp-port: 5672
+
+mp:
+  messaging:
+    outgoing:
+      queue-A-out:
+        connector: smallrye-amqp
+        address: queue-A
+        durable: true
+        ttl: 0
+        tracing-enabled: false
+      queue-B-out:
+        connector: smallrye-amqp
+        address: queue-B
+        durable: true
+        ttl: 0
+        tracing-enabled: false
+      queue-C-out:
+        connector: smallrye-amqp
+        address: queue-C
+        durable: true
+        ttl: 0
+        tracing-enabled: false
+    incoming:
+      queue-A-in:
+        connector: smallrye-amqp
+        address: queue-A
+        durable: false
+        tracing-enabled: false
+      queue-B-in:
+        connector: smallrye-amqp
+        address: queue-B
+        durable: false
+        tracing-enabled: false
+      queue-C-in:
+        connector: smallrye-amqp
+        address: queue-C
+        durable: false
+        tracing-enabled: false
+
+smallrye:
+  messaging:
+    worker:
+      WorkerPool-A:
+        max-concurrency: 1
+      WorkerPool-B:
+        max-concurrency: 1
+      WorkerPool-C:
+        max-concurrency: 1
